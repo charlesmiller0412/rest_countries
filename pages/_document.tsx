@@ -22,6 +22,11 @@ class MyDocument extends Document {
                         sizes="180x180"
                         href="%PUBLIC_URL%/assets/favicon/apple-touch-icon.png"
                     />
+                    {/* Google Fonts */}
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
+                        rel="stylesheet"
+                    ></link>
                 </Head>
                 <body>
                     <Main />
