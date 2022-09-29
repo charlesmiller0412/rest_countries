@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Navbar from "../components/navbar";
+import SearchBar from "../components/SearchBar/searchBar";
 
 const Home: NextPage = () => {
     return (
@@ -32,17 +33,11 @@ const Home: NextPage = () => {
 
             <main
                 className={
-                    "w-screen h-screen flex items-center justify-center flex-col bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white"
+                    "w-screen h-screen flex justify-evenly py-[8rem] px-[1.6rem] md:p-[8rem] bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white"
                 }
             >
                 <Navbar />
-                <h1
-                    className={
-                        "text-black dark:text-white text-4xl dark:text-7xl transition-all"
-                    }
-                >
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
+                <SearchBar />
             </main>
 
             <footer className={""}></footer>
