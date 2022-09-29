@@ -1,6 +1,5 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { CssBaseline } from "@nextui-org/react";
 
 class MyDocument extends Document {
     static async getInitialProps(ctx: any) {
@@ -15,7 +14,6 @@ class MyDocument extends Document {
         return (
             <Html lang="en-us">
                 <Head>
-                    {CssBaseline.flush()}
                     {/* FAVICON */}
                     <link
                         rel="apple-touch-icon"

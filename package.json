@@ -3,15 +3,18 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "sass": "sass styles/sass:styles/css --watch --no-source-map",
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
     },
     "dependencies": {
-        "@nextui-org/react": "^1.0.0-beta.10",
+        "@fortawesome/fontawesome-svg-core": "^6.2.0",
+        "@fortawesome/free-regular-svg-icons": "^6.2.0",
+        "@fortawesome/free-solid-svg-icons": "^6.2.0",
+        "@fortawesome/react-fontawesome": "^0.2.0",
         "next": "12.3.1",
+        "next-themes": "^0.2.1",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "zustand": "^4.1.1"
@@ -20,9 +23,11 @@
         "@types/node": "18.7.23",
         "@types/react": "18.0.21",
         "@types/react-dom": "18.0.6",
+        "autoprefixer": "^10.4.12",
         "eslint": "8.24.0",
         "eslint-config-next": "12.3.1",
-        "sass": "^1.55.0",
+        "postcss": "^8.4.16",
+        "tailwindcss": "^3.1.8",
         "typescript": "4.8.4"
     }
 }

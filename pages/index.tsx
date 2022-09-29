@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Navbar from "../components/navbar";
 
 const Home: NextPage = () => {
     return (
@@ -29,8 +30,17 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/public/favicon.ico" />
             </Head>
 
-            <main className={""}>
-                <h1 className={""}>
+            <main
+                className={
+                    "w-screen h-screen flex items-center justify-center flex-col bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white"
+                }
+            >
+                <Navbar />
+                <h1
+                    className={
+                        "text-black dark:text-white text-4xl dark:text-7xl transition-all"
+                    }
+                >
                     Welcome to <a href="https://nextjs.org">Next.js!</a>
                 </h1>
             </main>
