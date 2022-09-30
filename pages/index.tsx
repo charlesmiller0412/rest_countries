@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Navbar from "../components/navbar";
 import SearchBar from "../components/SearchBar/searchBar";
+import { Viewport } from "../components/Viewport/viewport";
 
 const Home: NextPage = () => {
     return (
@@ -33,11 +34,12 @@ const Home: NextPage = () => {
 
             <main
                 className={
-                    "w-screen h-screen flex justify-evenly py-[8rem] px-[1.6rem] md:p-[8rem] bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white"
+                    "w-screen h-screen flex flex-col justify-evenly py-[8rem] px-[1.6rem] md:p-[8rem] bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white overflow-x-hidden"
                 }
             >
                 <Navbar />
                 <SearchBar />
+                <Viewport />
             </main>
 
             <footer className={""}></footer>
