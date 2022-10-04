@@ -3,7 +3,7 @@ import { Input } from "./input";
 
 export default function SearchBar() {
     return (
-        <div className="searchBar flex flex-col md:flex-row justify-between self-start mt-[4.8rem] h-[13.6rem] md:h-auto items-center w-full">
+        <div className="searchBar flex flex-col h-[13.6rem] md:h-auto md:flex-row w-full justify-between mb-[3.2rem] md:my-[4.8rem] items-center">
             <Input />
             <Filter />
         </div>

@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import Navbar from "../components/navbar";
 import SearchBar from "../components/SearchBar/searchBar";
 import { Viewport } from "../components/Viewport/viewport";
+import useCountryStore from "../appStore";
 
 const Home: NextPage = () => {
     return (
-        <div className={""}>
+        <>
             <Head>
                 <meta charSet="utf-8" />
                 <meta
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
 
             <main
                 className={
-                    "w-screen h-screen flex flex-col justify-evenly py-[8rem] px-[1.6rem] md:p-[8rem] bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white overflow-x-hidden"
+                    "relative w-full h-full flex flex-col py-[10.4rem] px-[1.6rem] md:p-[8rem] bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white overflow-x-hidden"
                 }
             >
                 <Navbar />
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             </main>
 
             <footer className={""}></footer>
-        </div>
+        </>
     );
 };
 

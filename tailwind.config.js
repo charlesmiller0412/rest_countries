@@ -5,8 +5,15 @@ module.exports = {
     ],
     darkMode: "class",
     theme: {
-        fontSize: { sm: "1rem", base: "1.4rem", lg: "1.8rem" },
-        lineHeight: { base: "1.6rem", lg: "2rem" },
+        fontSize: {
+            sm: "1rem",
+            base: "1.4rem",
+            md: "1.6rem",
+            lg: "1.8rem",
+            mobileLg: "2.2rem",
+            xl: "3.2rem",
+        },
+        lineHeight: { auto: "auto", base: "1.6rem", lg: "2rem", xl: "3.2rem" },
         colors: {
             darkBlue: "hsl(209, 23%, 22%)",
             veryDarkBlueD: "hsl(207, 26%, 17%)",
