@@ -3,7 +3,6 @@ import useCountryStore from "../../appStore";
 
 export default function SearchResults({ fetchActiveCountry }: any) {
     const filtered = useCountryStore((state: any) => state.filteredCountries);
-    const countries = useCountryStore((state: any) => state.countries);
     let imageSize: any;
     imageSize = {
         position: "relative",

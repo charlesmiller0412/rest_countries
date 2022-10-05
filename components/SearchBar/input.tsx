@@ -6,7 +6,6 @@ export const Input = () => {
     const searchInput = useCountryStore((state: any) => state.searchInput);
     const countries = useCountryStore((state: any) => state.countries);
     const setFiltered = useCountryStore((state: any) => state.setFiltered);
-    const filtered = useCountryStore((state: any) => state.filtered);
     const setSearchInput = useCountryStore(
         (state: any) => state.setSearchInput
     );

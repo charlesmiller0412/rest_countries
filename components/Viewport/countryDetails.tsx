@@ -6,7 +6,6 @@ import useCountryStore from "../../appStore";
 
 export default function CountryDetails() {
     const router = useRouter();
-    const countries = useCountryStore((state: any) => state.countries);
     const activeCountry = useCountryStore((state: any) => state.activeCountry);
 
     return (

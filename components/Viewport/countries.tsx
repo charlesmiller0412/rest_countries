@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useCountryStore from "../../appStore";
 import SearchResults from "./searchResults";
 
 export default function All() {
-    const activeCountry = useCountryStore((state: any) => state.activeCountry);
+    const region = useCountryStore((state: any) => state.region);
+
     const countries = useCountryStore((state: any) => state.countries);
     const updateCountries = useCountryStore(
         (state: any) => state.updateCountries
@@ -21,38 +22,61 @@ export default function All() {
         position: "relative",
     };
 
-    const fetchCountries = async () => {
-        try {
-            const response = await fetch("https://restcountries.com/v2/all");
-            const json = await response.json();
-            updateCountries(json);
-            return;
-        } catch (err: any) {
-            console.error(err.message);
-        }
-    };
-
     const fetchActiveCountry = async (key: any) => {
         try {
-            const response = await fetch(
-                `https://restcountries.com/v2/name/${key}`
+            const res = await fetch(
+                `https://restcountries.com/v2/name/${key}`,
+                {
+                    method: "GET",
+                    cache: "no-cache",
+                }
             );
-            const json = await response.json();
+            const json = await res.json();
             updateActiveCountry(json);
             router.push("/details");
-            console.log(activeCountry);
-            return;
         } catch (err: any) {
             console.error(err.message);
         }
     };
 
     useEffect(() => {
+        const fetchCountries = async () => {
+            if (
+                region == "Africa" ||
+                region == "Americas" ||
+                region == "Asia" ||
+                region == "Europe" ||
+                region == "Oceania"
+            ) {
+                try {
+                    const res = await fetch(
+                        `https://restcountries.com/v2/region/${region}`,
+                        {
+                            method: "GET",
+                            cache: "no-cache",
+                        }
+                    );
+                    const json = await res.json();
+                    updateCountries(json);
+                } catch (err: any) {
+                    console.error(err.message);
+                }
+            } else {
+                try {
+                    const res = await fetch("https://restcountries.com/v2/all");
+                    const json = await res.json();
+                    updateCountries(json);
+                } catch (err: any) {
+                    console.error(err.message);
+                }
+            }
+        };
+
         fetchCountries();
-    }, []);
+    }, [region]);
 
     return (
-        <>
+        <div className="viewport transition-all w-full h-2/3 md:h-full flex flex-wrap md:justify-between gap-x-[7.45rem] gap-y-[4rem] md:gap-y-[5rem] justify-center">
             {searchInput.length > 0 ? (
                 <SearchResults fetchActiveCountry={fetchActiveCountry} />
             ) : (
@@ -103,6 +127,6 @@ export default function All() {
                     </div>
                 ))
             )}
-        </>
+        </div>
     );
 }

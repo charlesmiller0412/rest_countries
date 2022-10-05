@@ -2,10 +2,16 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "../components/navbar";
 import SearchBar from "../components/SearchBar/searchBar";
-import { Viewport } from "../components/Viewport/viewport";
-import useCountryStore from "../appStore";
+import dynamic from "next/dynamic";
 
 const Home: NextPage = () => {
+    const Countries = dynamic(
+        () => import("../components/Viewport/countries"),
+        {
+            ssr: false,
+        }
+    );
+
     return (
         <>
             <Head>
@@ -34,12 +40,12 @@ const Home: NextPage = () => {
 
             <main
                 className={
-                    "relative w-full h-full flex flex-col py-[10.4rem] px-[1.6rem] md:p-[8rem] bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white overflow-x-hidden"
+                    "relative w-full h-screen flex flex-col py-[10.4rem] px-[1.6rem] md:p-[8rem] bg-lightGray dark:bg-veryDarkBlueD transition-all text-veryDarkBlueL dark:text-white overflow-x-hidden"
                 }
             >
                 <Navbar />
                 <SearchBar />
-                <Viewport />
+                <Countries />
             </main>
 
             <footer className={""}></footer>
