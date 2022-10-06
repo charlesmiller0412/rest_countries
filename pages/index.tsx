@@ -52,7 +52,7 @@ const Home: NextPage = () => {
                 <Countries />
                 <a
                     href="#navbar"
-                    className="fixed bottom-12 left-8 text-white text-base flex flex-col justify-center items-center"
+                    className="fixed bottom-12 left-4 md:left-8 text-white text-base flex flex-col justify-center items-center"
                 >
                     <FontAwesomeIcon icon={faArrowUp} size="2x" />
                     <span className="text-center w-2/3">Back to Top</span>
