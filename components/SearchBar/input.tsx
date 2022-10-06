@@ -3,6 +3,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import useCountryStore from "../../appStore";
 
 export const Input = () => {
+    // state management
     const searchInput = useCountryStore((state: any) => state.searchInput);
     const countries = useCountryStore((state: any) => state.countries);
     const setFiltered = useCountryStore((state: any) => state.setFiltered);
@@ -10,6 +11,7 @@ export const Input = () => {
         (state: any) => state.setSearchInput
     );
 
+    // search for input
     const searchCountries = (searchValue: any) => {
         setSearchInput(searchValue);
 

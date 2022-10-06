@@ -1,10 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import useCountryStore from "../appStore";
 import Navbar from "../components/navbar";
-import CountryDetails from "../components/Viewport/countryDetails";
 import dynamic from "next/dynamic";
 
 const Details: NextPage = () => {

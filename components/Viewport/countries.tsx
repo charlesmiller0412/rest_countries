@@ -6,10 +6,10 @@ import dynamic from "next/dynamic";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Countries() {
+    // state management
     const region = useCountryStore((state: any) => state.region);
     const isLoading = useCountryStore((state: any) => state.isLoading);
     const setIsLoading = useCountryStore((state: any) => state.setIsLoading);
-
     const countries = useCountryStore((state: any) => state.countries);
     const updateCountries = useCountryStore(
         (state: any) => state.updateCountries
@@ -18,17 +18,14 @@ export default function Countries() {
         (state: any) => state.updateActiveCountry
     );
     const searchInput = useCountryStore((state: any) => state.searchInput);
-    let imageSize: any;
+
+    // imports
     const router = useRouter();
-
-    imageSize = {
-        position: "relative",
-    };
-
     const SearchResults = dynamic(() => import("./searchResults"), {
         ssr: false,
     });
 
+    // fecth data for selected country
     const fetchActiveCountry = async (key: any) => {
         try {
             const res = await fetch(
@@ -46,6 +43,7 @@ export default function Countries() {
         }
     };
 
+    // fetch criteria
     useEffect(() => {
         const fetchCountries = async () => {
             if (
@@ -87,8 +85,7 @@ export default function Countries() {
     }, [region]);
 
     return (
-        <div className="viewport h-2/3 grid grid-flow-row grid-cols-1 m-auto md:grid-cols-2 gap-x-32 gap-y-20 lg:grid-cols-4 lg:gap-x-[3vw]  xl:container xl:m-auto">
-            {/* <div className="viewport transition-all w-full h-2/3 md:h-full flex flex-wrap md:justify-between gap-x-[7.45rem] gap-y-[4rem] md:gap-y-[5rem] justify-center"> */}
+        <div className="viewport h-2/3 grid grid-flow-row grid-cols-1 m-auto md:grid-cols-2 gap-x-32 gap-y-20 lg:grid-cols-4 lg:gap-x-[3vw] xl:container xl:m-auto">
             {searchInput.length > 0 ? (
                 <SearchResults fetchActiveCountry={fetchActiveCountry} />
             ) : (

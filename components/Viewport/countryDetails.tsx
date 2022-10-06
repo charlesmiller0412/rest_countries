@@ -6,14 +6,11 @@ import useCountryStore from "../../appStore";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CountryDetails() {
+    // state management
     const countries = useCountryStore((state: any) => state.countries);
-    const isLoading = useCountryStore((state: any) => state.isLoading);
     const setIsLoading = useCountryStore((state: any) => state.setIsLoading);
     const router = useRouter();
     const activeCountry = useCountryStore((state: any) => state.activeCountry);
-    const borders = useCountryStore((state: any) => state.borders);
-    const setBorders = useCountryStore((state: any) => state.setBorders);
-
     const updateActiveCountry = useCountryStore(
         (state: any) => state.updateActiveCountry
     );

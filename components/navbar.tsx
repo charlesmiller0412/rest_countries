@@ -10,13 +10,11 @@ export default function Navbar() {
     const { theme, setTheme } = useTheme();
     const setIsLoading = useCountryStore((state: any) => state.setIsLoading);
 
-    function handleClick() {
-        setIsLoading(true);
-        router.push("/");
-    }
-
     return (
-        <nav className="navbar z-20 px-[1.6rem] py-[3rem] md:px-[8rem] md:py-[2.4rem] absolute left-0 w-full flex justify-between top-0 shadow-[0_2px_4px_rgba(0,0,0,0.0562443)] bg-white dark:bg-darkBlue">
+        <nav
+            id="navbar"
+            className="navbar z-20 px-[1.6rem] py-[3rem] md:px-[8rem] md:py-[2.4rem] absolute left-0 w-full flex justify-between top-0 shadow-[0_2px_4px_rgba(0,0,0,0.0562443)] bg-white dark:bg-darkBlue"
+        >
             <a
                 onClick={() => {
                     setIsLoading(true);
