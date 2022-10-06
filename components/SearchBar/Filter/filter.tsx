@@ -3,12 +3,15 @@ import { Overlay } from "./overlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import useCountryStore from "../../../appStore";
+
 export const Filter = () => {
     const region = useCountryStore((state: any) => state.region);
+    const setIsLoading = useCountryStore((state: any) => state.setIsLoading);
 
     const [showFilters, setShowFilters] = useState(false);
 
     function toggleFilter() {
+        setIsLoading(true);
         setShowFilters(!showFilters);
     }
 

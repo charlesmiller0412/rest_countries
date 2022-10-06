@@ -11,6 +11,9 @@ const Home: NextPage = () => {
             ssr: false,
         }
     );
+    const Navbar = dynamic(() => import("../components/navbar"), {
+        ssr: false,
+    });
 
     return (
         <>

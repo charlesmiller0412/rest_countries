@@ -3,9 +3,12 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import useCountryStore from "../../appStore";
 import SearchResults from "./searchResults";
+import { v4 as uuidv4 } from "uuid";
 
-export default function All() {
+export default function Countries() {
     const region = useCountryStore((state: any) => state.region);
+    const isLoading = useCountryStore((state: any) => state.isLoading);
+    const setIsLoading = useCountryStore((state: any) => state.setIsLoading);
 
     const countries = useCountryStore((state: any) => state.countries);
     const updateCountries = useCountryStore(
@@ -58,6 +61,7 @@ export default function All() {
                     );
                     const json = await res.json();
                     updateCountries(json);
+                    setIsLoading(false);
                 } catch (err: any) {
                     console.error(err.message);
                 }
@@ -66,24 +70,28 @@ export default function All() {
                     const res = await fetch("https://restcountries.com/v2/all");
                     const json = await res.json();
                     updateCountries(json);
+                    setIsLoading(false);
                 } catch (err: any) {
                     console.error(err.message);
                 }
             }
         };
-
-        fetchCountries();
+        if (isLoading) {
+            fetchCountries();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [region]);
 
     return (
-        <div className="viewport transition-all w-full h-2/3 md:h-full flex flex-wrap md:justify-between gap-x-[7.45rem] gap-y-[4rem] md:gap-y-[5rem] justify-center">
+        <div className="viewport h-2/3 grid grid-flow-row grid-cols-1 m-auto md:grid-cols-2 gap-x-32 gap-y-20 lg:grid-cols-4 lg:gap-x-[3vw]  xl:container xl:m-auto">
+            {/* <div className="viewport transition-all w-full h-2/3 md:h-full flex flex-wrap md:justify-between gap-x-[7.45rem] gap-y-[4rem] md:gap-y-[5rem] justify-center"> */}
             {searchInput.length > 0 ? (
                 <SearchResults fetchActiveCountry={fetchActiveCountry} />
             ) : (
                 countries.map((country: any) => (
                     <div
-                        key={country.name}
-                        className="card w-[26.4rem] h-[33.6rem] overflow-hidden rounded-lg bg-white dark:bg-darkBlue shadow-[0_0_7px_2px_rgba(0,0,0,0.0294384)] cursor-pointer"
+                        key={uuidv4()}
+                        className="card max-w-[26.4rem] h-[34rem] overflow-hidden rounded-lg bg-white dark:bg-darkBlue shadow-[0_0_7px_2px_rgba(0,0,0,0.0294384)] cursor-pointer"
                         onClick={() => fetchActiveCountry(country.name)}
                     >
                         <div className="card__top h-[16rem] bg-[#325678] grid place-items-center w-full relative">
@@ -97,7 +105,7 @@ export default function All() {
                         <div className="card__bottom p-[2.4rem] text-veryDarkBlueL dark:text-white">
                             <div className="card__bottom--title">
                                 <h3
-                                    className="text-lg font-extraBold leading-[2.6rem] mb-[1.6rem]"
+                                    className="font-extraBold leading-[2.6rem] mb-[1.6rem]"
                                     id={country.name}
                                 >
                                     {country.name}

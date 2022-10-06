@@ -1,6 +1,9 @@
 import create from "zustand";
 
 const useCountryStore = create((set) => ({
+    isLoading: true,
+    setIsLoading: (key: any) => set({ isLoading: key }),
+
     // All countries state
     countries: [],
     updateCountries: (key: any) => set({ countries: key }),

@@ -3,34 +3,74 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import useCountryStore from "../../appStore";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CountryDetails() {
+    const countries = useCountryStore((state: any) => state.countries);
+    const isLoading = useCountryStore((state: any) => state.isLoading);
+    const setIsLoading = useCountryStore((state: any) => state.setIsLoading);
     const router = useRouter();
     const activeCountry = useCountryStore((state: any) => state.activeCountry);
+    const borders = useCountryStore((state: any) => state.borders);
+    const setBorders = useCountryStore((state: any) => state.setBorders);
+
+    const updateActiveCountry = useCountryStore(
+        (state: any) => state.updateActiveCountry
+    );
+
+    function handleClick() {
+        setIsLoading(false);
+        router.push("/");
+    }
+    let index: any = [];
+
+    function getIndex(border: any) {
+        index = [];
+        index = countries
+            .map((country: any) => country.alpha3Code)
+            .indexOf(border);
+        return countries[index].name;
+    }
+
+    const fetchActiveCountry = async (key: any) => {
+        try {
+            const res = await fetch(
+                `https://restcountries.com/v2/name/${key}`,
+                {
+                    method: "GET",
+                    cache: "no-cache",
+                }
+            );
+            const json = await res.json();
+            updateActiveCountry(json);
+        } catch (err: any) {
+            console.error(err.message);
+        }
+    };
 
     return (
         <div className="countryDetails w-full h-full lg:mt-[8rem] flex flex-col px-[2.8rem] lg:px-0">
             <button
-                className="countryDetails__back flex items-center text-[1.6rem] font-light leading-lg text-veryDarkBlueL dark:text-white dark:bg-darkBlue px-[3rem] py-[1rem] rounded-[.5rem] w-fit capitalize mb-[6.4rem] md:mb-[8rem]"
-                onClick={() => router.push("/")}
+                className="countryDetails__back flex items-center text-[1.6rem] font-light leading-lg text-veryDarkBlueL dark:text-white dark:bg-darkBlue px-[3rem] py-[1rem] rounded-[.5rem] w-fit capitalize mb-[6.4rem] "
+                onClick={() => handleClick()}
             >
                 <div className="text-[2rem] mr-[1rem] h-full grid place-items-center">
                     <FontAwesomeIcon icon={faArrowLeftLong} />
                 </div>
                 back
             </button>
-            <div className="countryDetails__details flex flex-col items-center lg:flex lg:flex-row justify-between pb-[6.2rem] lg:pb-0">
+            <div className="countryDetails__details flex flex-col items-center lg:flex lg:flex-row justify-between pb-[6.2rem] lg:pb-0 max-w-fit m-auto">
                 <div className="countryDetails__details--flag mb-[4rem] lg:mb-0 w-full justify-center flex lg:justify-start lg:mr-[5rem]">
-                    <div className="countryDetails__details--flag-image overflow-hidden relative w-full h-[25vh] max-h-[22.9rem] lg:w-[49vw] lg:max-w-[56rem] lg:h-[42.5vh] lg:max-h-[40rem] rounded-[.5rem]">
+                    <div className="countryDetails__details--flag-image relative w-full h-[25vh] max-h-[22.9rem] lg:w-[49vw] lg:max-w-[56rem] lg:h-[42.5vh] lg:max-h-[40rem] rounded-[.5rem] overflow-hidden">
                         <Image
                             src={activeCountry[0].flag}
                             layout="fill"
                             alt="flag"
-                            objectFit="contain"
+                            objectFit="cover"
                         />
                     </div>
                 </div>
-                <div className="countryDetails__details--info whitespace-nowrap flex flex-col justify-between">
+                <div className="countryDetails__details--info whitespace-nowrap flex flex-col justify-between w-full">
                     <h2 className="text-mobileLg leading-xl lg:leading-auto lg:text-xl font-extraBold mb-[1.6rem]">
                         {activeCountry[0].name}
                     </h2>
@@ -79,11 +119,11 @@ export default function CountryDetails() {
                                 <span className="font-semiBold text-md lg:text-[1.1vw] xl:text-md">
                                     currencies:{" "}
                                 </span>
-                                {activeCountry[0].currencies.length >= 1 ? (
+                                {activeCountry[0].currencies ? (
                                     activeCountry[0].currencies.map(
                                         (currency: any) => (
                                             <span
-                                                key={activeCountry[0].name}
+                                                key={uuidv4()}
                                                 className="capitalize font-light text-md leading-xl lg:text-[1.1vw] xl:text-md"
                                             >
                                                 {currency.name}
@@ -92,10 +132,10 @@ export default function CountryDetails() {
                                     )
                                 ) : (
                                     <span
-                                        key={activeCountry[0].name}
+                                        key={uuidv4()}
                                         className="capitalize font-light text-md leading-xl lg:text-[1.1vw] xl:text-md"
                                     >
-                                        {activeCountry[0].currencies.name}
+                                        none
                                     </span>
                                 )}
                             </li>
@@ -108,7 +148,7 @@ export default function CountryDetails() {
                                         (language: any) => (
                                             <span
                                                 id="language"
-                                                key={activeCountry[0].name}
+                                                key={uuidv4()}
                                                 className="capitalize font-light text-md lg:text-[1.1vw] leading-xl xl:text-md"
                                             >
                                                 {language.name}
@@ -118,7 +158,7 @@ export default function CountryDetails() {
                                 ) : (
                                     <span
                                         id="language"
-                                        key={activeCountry[0].name}
+                                        key={uuidv4()}
                                         className="capitalize font-light text-md lg:text-[1.1vw] leading-xl xl:text-md"
                                     >
                                         {activeCountry.name}
@@ -131,23 +171,31 @@ export default function CountryDetails() {
                         <h3 className="text-md xl:text-md font-semiBold leading-[2.4rem] w-1/4 lg:text-[1.1vw] lg:mr-3 mb-[1.6rem] lg:mb-0">
                             Border Countries:
                         </h3>
-                        <ul className="w-full lg:w-2/3 grid grid-cols-3 xl:grid-cols-4 justify-between lg:justify-start gap-5">
+                        <ul className="w-full lg:w-full grid grid-cols-2 xl:grid-cols-4 justify-between lg:justify-start gap-5">
                             {activeCountry[0].borders ? (
                                 activeCountry[0].borders.map((border: any) => (
                                     <li
-                                        key={activeCountry[0].name}
-                                        className="w-[7vw] min-w-[9.6rem] font-light lg:text-[1.1vw] text-base xl:text-base leading-auto py-[.5rem] text-center shadow-[0_0_4px_1px_rgba(0,0,0,0.104931)] dark:shadow-0 dark:bg-darkBlue"
+                                        onClick={() => {
+                                            fetchActiveCountry(
+                                                getIndex(border)
+                                            );
+                                        }}
+                                        key={uuidv4()}
+                                        className="w-{10vw} whitespace-normal cursor-pointer font-light lg:text-[1.1vw] text-base xl:text-base leading-auto py-[.5rem] text-center shadow-[0_0_4px_1px_rgba(0,0,0,0.104931)] dark:shadow-0 dark:bg-darkBlue hover:text-darkGray grid place-items-center"
                                     >
-                                        {border}
+                                        {/* {border} */}
+                                        {index.length > 0
+                                            ? ""
+                                            : getIndex(border)}
                                     </li>
                                 ))
                             ) : (
-                                <li
-                                    key={activeCountry[0].name}
-                                    className="w-[7vw] min-w-[9.6rem] font-light lg:text-[1.1vw] text-base xl:text-base leading-auto py-[.5rem] text-center shadow-[0_0_4px_1px_rgba(0,0,0,0.104931)] dark:shadow-0 dark:bg-darkBlue"
+                                <a
+                                    key={uuidv4()}
+                                    className="w-[3.5vw] font-light lg:text-[1.1vw] text-base xl:text-base leading-auto py-[.5rem] text-center shadow-[0_0_4px_1px_rgba(0,0,0,0.104931)] dark:shadow-0 dark:bg-darkBlue"
                                 >
                                     None
-                                </li>
+                                </a>
                             )}
                         </ul>
                     </div>

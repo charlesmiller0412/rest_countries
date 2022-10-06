@@ -24,7 +24,7 @@ class MyDocument extends Document {
                     <link
                         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
                         rel="stylesheet"
-                    ></link>
+                    />
                 </Head>
                 <body>
                     <Main />

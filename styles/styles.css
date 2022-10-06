@@ -21,3 +21,11 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button !important;
     cursor: pointer;
 }
+
+h3 {
+    font-size: clamp(1.4rem, 1vw, 1.8rem);
+}
+
+.card__bottom--info-detail {
+    font-size: clamp(1.2rem, 1vw, 1.6rem);
+}
