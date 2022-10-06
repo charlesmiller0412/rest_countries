@@ -5,8 +5,15 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import useCountryStore from "../appStore";
 import Navbar from "../components/navbar";
 import CountryDetails from "../components/Viewport/countryDetails";
+import dynamic from "next/dynamic";
 
 const Details: NextPage = () => {
+    const CountryDetails = dynamic(
+        () => import("../components/Viewport/countryDetails"),
+        {
+            ssr: false,
+        }
+    );
     return (
         <>
             <Head>
