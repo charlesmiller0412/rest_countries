@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useCountryStore from "../../appStore";
-import SearchResults from "./searchResults";
+import dynamic from "next/dynamic";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Countries() {
@@ -24,6 +24,10 @@ export default function Countries() {
     imageSize = {
         position: "relative",
     };
+
+    const SearchResults = dynamic(() => import("./searchResults"), {
+        ssr: false,
+    });
 
     const fetchActiveCountry = async (key: any) => {
         try {

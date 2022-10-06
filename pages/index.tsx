@@ -50,8 +50,6 @@ const Home: NextPage = () => {
                 <SearchBar />
                 <Countries />
             </main>
-
-            <footer className={""}></footer>
         </>
     );
 };
